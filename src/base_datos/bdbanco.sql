@@ -341,17 +341,17 @@ end;
 $$ language 'plpgsql'
 
 --insertando en tabla canal
-insert into canal (descripcion) values ('Agente');
-insert into canal (descripcion) values ('Banca Móvil');
-insert into canal (descripcion) values ('Banca por internet');
-insert into canal (descripcion) values ('Cajeros automáticos');
-insert into canal (descripcion) values ('Agencias');
+insert into canal (descripcion) values ('Agente'),
+				       ('Banca Móvil'),
+				       ('Banca por internet'),
+				       ('Cajeros automáticos'),
+				       ('Agencias');
 
 --insert en la tabla tipo cliente
 select * from tipo_cliente;
 
-insert into tipo_cliente (descripcion) values ('Persona natural');
-insert into tipo_cliente (descripcion) values ('Persona jurídica');
+insert into tipo_cliente (descripcion) values ('Persona natural'),
+					      ('Persona jurídica');
 
 --insert dentro de tipo_moneda
 select * from tipo_moneda;
@@ -368,5 +368,45 @@ insert into tipo_moneda (codigo,descripcion) values ('SOL','Sol'),
 
 --insert en la tabla tipo tarjeta
 select * from tipo_tarjeta
-insert into tipo_tarjeta (descripcion) values ('Débito');
-insert into tipo_tarjeta (descripcion) values ('Crédito');
+insert into tipo_tarjeta (descripcion) values ('Débito'),
+					      ('Crédito');
+					       
+--insert en tipo_movimiento
+select * from tipo_movimiento
+insert into tipo_movimiento (descripcion) values ('Depósito'),
+					         ('Retiro');
+					       
+--insert en usuario
+select * from usuario
+insert into usuario (codigo_usuario) values ('DSOL0271'),
+					    ('RSOL9273'),
+					    ('DUSD0172'),
+					    ('DUSD9261'),
+					    ('RMXN0177');
+				
+--insert en provincia
+select * from provincia
+insert into provincia (descripcion) values ('Chiclayo'),
+					   ('Ferreñafe'),
+					   ('Lambayeque'),
+					   ('Lima'),
+					   ('Barranca'),
+					   ('Cañete');
+					       
+--insert en departamento
+select * from departamento
+insert into departamento (descripcion) values ('Lambayeque'),
+					      ('La Libertad'),
+					      ('Lima'),
+					      ('Piura'),
+					      ('Tumbes'),
+					      ('Cuzco'),
+					      ('Loreto');
+					       
+--insert en ubigeo
+select * from ubigeo
+insert into ubigeo (id, departamentoid, provinciaid, distrito) values ('130101', 1, 1, 'Chiclayo'),
+					       			      ('130103', 1, 1, 'Eten'),
+					       			      ('130116', 1, 1, 'Cayaltí'),
+					       			      ('130101', 1, 1, 'Chiclayo'),
+					       			      ('130201', 1, 2, 'Ferreñafe');
