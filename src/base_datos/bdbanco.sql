@@ -348,19 +348,23 @@ insert into canal (descripcion) values ('Cajeros automáticos');
 insert into canal (descripcion) values ('Agencias');
 
 --insert en la tabla tipo cliente
-select * from tipo_cliente
+select * from tipo_cliente;
 
 insert into tipo_cliente (descripcion) values ('Persona natural');
 insert into tipo_cliente (descripcion) values ('Persona jurídica');
 
 --insert dentro de tipo_moneda
-select * from tipo_moneda
+select * from tipo_moneda;
 
-insert into tipo_moneda (codigo,descripcion) values ('SOL','Sol');
-insert into tipo_moneda (codigo,descripcion) values ('EUR','Euro');
-insert into tipo_moneda (codigo,descripcion) values ('USD','Dólar');
-insert into tipo_moneda (codigo,descripcion) values ('JPY','Yen');
-insert into tipo_moneda (codigo,descripcion) values ('MXN','Peso Mexicano');
+insert into tipo_moneda (codigo,descripcion) values ('SOL','Sol'),
+						    ('EUR','Euro'),
+						    ('USD','Dólar'),
+						    ('JPY','Yen'),
+						    ('MXN','Peso Mexicano'),
+						    ('ARS','Peso Argentino'),
+						    ('GBP','Libra Esterlina'),
+						    ('BRL','Real Brasileño'),
+					       	    ('VES','Bolívar');
 
 --insert en la tabla tipo tarjeta
 select * from tipo_tarjeta
