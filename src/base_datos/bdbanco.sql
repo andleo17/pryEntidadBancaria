@@ -447,7 +447,7 @@ $$ language 'plpgsql'
 
 --consultar movimientos frecuentes
 create or replace function fn_consultar_movimientos_frecuentes( dni varchar ) 
-returns table (nom text, ) as
+returns table (nom text, num VARCHAR ) as
 $$
 Declare
 	id int = (select id from cliente where numero_documento=dni);
@@ -461,6 +461,9 @@ Begin
 	
 end;
 $$ language 'plpgsql'
+select * from fn_consultar_movimientos_frecuentes( ' ' ) 
+
+
 
 --conocer mes 
 Create or replace function fn_nombre_mes(mes_num int) returns character varying as
