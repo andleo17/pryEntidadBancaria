@@ -419,10 +419,20 @@ insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_pat
 
 --insert into servicio
 insert into servicio values
-(default, 1, 'Agua'),
-(default, 2, 'Agua'),
-(default, 2, 'Luz'),
-(default, 3, 'Luz'), 
-(default, 4, 'Agua'),
-(default, 5, 'Luz'),
-(default, 6, 'Luz'); 
+1(default, 1, 'Agua'),
+2(default, 2, 'Luz'),
+3(default, 3, 'Movistar Móvil Postpago'),
+4(default, 3, 'Movistar Fijo'), 
+5(default, 4, 'Entel Móvil Postpago'),
+6(default, 4, 'Entel Fijo');
+
+--insert into servicio_brindado
+insert into servicio_brindado values 
+(default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
+(default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
+(default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
+(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
+(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
+(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
+(default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
+(default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
