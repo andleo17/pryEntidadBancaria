@@ -1,9 +1,11 @@
 
 package modelo;
 
+import base_datos.IDBConnection;
 import java.util.ArrayList;
+import java.sql.*;
 
-public class Cliente {
+public class Cliente implements IDBConnection {
     
     private int id;
     private TipoCliente tipoCliente;
@@ -130,6 +132,19 @@ public class Cliente {
 
     public void setMovimientosFrecuentes(ArrayList<MovimientoFrecuente> movimientosFrecuentes) {
         this.movimientosFrecuentes = movimientosFrecuentes;
+    }
+    
+    public ArrayList<Cliente> obtenerListaClientes() {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        try (Connection connection = conectarBD(); ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM cliente;")) {
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
+                clientes.add(c);
+            }
+        } catch (Exception e) {
+        }
+        return clientes;
     }
     
 }

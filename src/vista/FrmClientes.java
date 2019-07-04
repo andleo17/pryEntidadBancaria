@@ -134,6 +134,7 @@ public class FrmClientes extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         jPanel2.add(jPanel3, gridBagConstraints);
 
         jButton1.setText("Agregar cliente");
