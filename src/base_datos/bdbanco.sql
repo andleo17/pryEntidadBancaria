@@ -35,11 +35,6 @@ CREATE TABLE MARCA (
     descripcion             VARCHAR(30)         NOT NULL
 );
 
-CREATE TABLE USUARIO (
-    id                      SERIAL              PRIMARY KEY,
-    codigo_usuario          VARCHAR(40)         NOT NULL
-);
-
 CREATE TABLE UBIGEO (
     id                      CHAR(6)             PRIMARY KEY,
     departamento            VARCHAR(25)                 NOT NULL REFERENCES DEPARTAMENTO,
@@ -97,7 +92,7 @@ CREATE TABLE SERVICIO (
 CREATE TABLE SERVICIO_BRINDADO (
     id                      SERIAL              PRIMARY KEY,
     servicio_id             INT                 NOT NULL REFERENCES SERVICIO,
-    usuario_id              INT                 NOT NULL REFERENCES USUARIO,
+    usuario                 VARCHAR(9)          NOT NULL,
     costo                   MONEY               NOT NULL,
     fecha_facturacion       DATE                NOT NULL,
     fecha_pago              DATE                NULL CHECK (fecha_pago >= fecha_facturacion)
