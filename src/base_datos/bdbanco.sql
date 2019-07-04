@@ -488,7 +488,7 @@ insert into cuota() values ();
 
 --insert en movimiento
 select*from movimiento
-insert into movimiento() values();
+insert into movimiento values();
 
 --insert movimiento_frecuente
 select*from MOVIMIENTO_FRECUENTE
