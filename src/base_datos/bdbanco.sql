@@ -436,3 +436,22 @@ insert into servicio_brindado values
 (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
 (default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
 (default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
+
+--insert into prestamo 
+CREATE TABLE PRESTAMO (
+    id                      SERIAL              PRIMARY KEY,
+    empleado_id             INT                 NOT NULL REFERENCES EMPLEADO,
+    tipo_prestamo_id        INT                 NOT NULL REFERENCES TIPO_PRESTAMO,
+    cliente_id              INT                 NOT NULL REFERENCES CLIENTE,
+    fecha_solicitud         DATE                NOT NULL CHECK (fecha_solicitud <= CURRENT_DATE),
+    fecha_aprobacion        DATE                NULL CHECK (fecha_aprobacion >= fecha_solicitud),
+    monto_total             MONEY               NOT NULL,
+    tasa_mensual            FLOAT               NOT NULL,
+    numero_cuotas           INT                 NOT NULL CHECK (numero_cuotas >= 1),
+    estado                  CHAR(1)             NOT NULL
+);
+
+insert into prestamo values 
+(default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
+(default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 15, 'N'),
+(default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
