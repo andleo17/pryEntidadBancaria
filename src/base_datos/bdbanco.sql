@@ -506,7 +506,7 @@ insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencim
 
 --insert en movimiento
 select*from movimiento
-insert into movimiento() values();
+insert into movimiento values();
 
 --insert movimiento_frecuente
 select*from MOVIMIENTO_FRECUENTE
