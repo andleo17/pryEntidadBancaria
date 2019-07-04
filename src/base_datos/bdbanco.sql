@@ -464,6 +464,11 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
                                                         (5,4),
                                                         (4,2),
                                                         (4,5);
+
+
+
+
+                                                        
                                                         
 
 
