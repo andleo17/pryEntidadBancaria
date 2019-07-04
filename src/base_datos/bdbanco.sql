@@ -30,16 +30,6 @@ CREATE TABLE TIPO_PRESTAMO (
     descripcion             VARCHAR(50)         NOT NULL
 );
 
-CREATE TABLE DEPARTAMENTO (
-    id                      SERIAL              PRIMARY KEY, 
-    descripcion             VARCHAR(60)         NOT NULL
-);
-
-CREATE TABLE PROVINCIA (
-    id                      SERIAL              PRIMARY KEY,
-    descripcion             VARCHAR(60)         NOT NULL
-);
-
 CREATE TABLE MARCA (
     id                      SERIAL              PRIMARY KEY,
     descripcion             VARCHAR(30)         NOT NULL
@@ -52,8 +42,8 @@ CREATE TABLE USUARIO (
 
 CREATE TABLE UBIGEO (
     id                      CHAR(6)             PRIMARY KEY,
-    departamento_id         INT                 NOT NULL REFERENCES DEPARTAMENTO,
-    provincia_id            INT                 NOT NULL REFERENCES PROVINCIA,
+    departamento            VARCHAR(25)                 NOT NULL REFERENCES DEPARTAMENTO,
+    provincia               VARCHAR(25)                 NOT NULL REFERENCES PROVINCIA,
     distrito                VARCHAR(60)         NOT NULL
 );
 
@@ -195,7 +185,8 @@ CREATE TABLE MOVIMIENTO_FRECUENTE (
     cuenta_id               INT                 NOT NULL REFERENCES CUENTA,
     cuenta_destino_id       INT                 NULL REFERENCES CUENTA,
     cuota_id                INT                 NULL REFERENCES CUOTA,
-    servicio_brindado_id    INT                 NULL REFERENCES SERVICIO_BRINDADO
+    servicio_brindado_id    INT                 NULL REFERENCES SERVICIO_BRINDADO,
+    monto                   MONEY               NULL 
 );
 
 alter table movimiento_frecuente ADD monto money null; 
@@ -376,37 +367,28 @@ select * from tipo_movimiento
 insert into tipo_movimiento (descripcion) values ('Depósito'),
 					         ('Retiro');
 					       
---insert en usuario
-select * from usuario
-insert into usuario (codigo_usuario) values ('DSOL0271'),
-					    ('RSOL9273'),
-					    ('DUSD0172'),
-					    ('DUSD9261'),
-					    ('RMXN0177');
-				
---insert en provincia
-select * from provincia
-insert into provincia (descripcion) values ('Chiclayo'),
-					   ('Ferreñafe'),
-					   ('Lambayeque'),
-					   ('Lima'),
-					   ('Barranca'),
-					   ('Cañete');
-					       
---insert en departamento
-select * from departamento
-insert into departamento (descripcion) values ('Lambayeque'),
-					      ('La Libertad'),
-					      ('Lima'),
-					      ('Piura'),
-					      ('Tumbes'),
-					      ('Cuzco'),
-					      ('Loreto');
-					       
 --insert en ubigeo
 select * from ubigeo
-insert into ubigeo (id, departamentoid, provinciaid, distrito) values ('130101', 1, 1, 'Chiclayo'),
-					       			      ('130103', 1, 1, 'Eten'),
-					       			      ('130116', 1, 1, 'Cayaltí'),
-					       			      ('130101', 1, 1, 'Chiclayo'),
-					       			      ('130201', 1, 2, 'Ferreñafe');
+insert into ubigeo (id, departamento, provincia, distrito) values ('140101', ' Lambayeque', ' Chiclayo', 'Chiclayo'),
+					       			      ('130101 ', 'La Libertad ', ' Trujillo ', 'Trujillo'),
+					       			      ('150101', ' Lima', 'Lima ', 'Lima'),
+					       			      (' 040101', 'Arequipa ', 'Arequipa ', 'Arequipa'),
+					       			      (' 160101', 'Loreto ', 'Maynas ', 'Iquitos');
+
+--insert en tipo_prestamo
+select*from tipo_prestamo 
+insert into tipo_prestamo (id, descripcion) values (DEFAULT , 'Corto plazo'),
+                                                    (DEFAULT, 'Mediano plazo'),
+                                                    (DEFAULT, 'Largo plazo'),
+                                                    (DEFAULT, 'Consumo');
+                                    
+--insert en marca
+select*from marca
+insert into marca(id, descripcion) values (DEFAULT, 'Visa'),
+                                            (DEFAUL, 'Dinners Club'),
+                                            (DEFAULT, 'MasterCard'),
+                                            (DEFAULT, 'American Express');
+
+--insert en sucursal
+select*from sucursal
+insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DEFAULT, '140101','Sucursar secundaria del Banco en Chiclayo', 'Avenida Banlta #345', '979815647')
