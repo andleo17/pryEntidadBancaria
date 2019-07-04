@@ -461,7 +461,7 @@ insert into tarjeta(id, tipo_tarjeta_id, marca_id, numero, mes_expiracion, año_
                     (DEFAULT, 1, 3, '4213 7834 1237 1234', 'octubre', '2024', '774', true, CURRENT_DATE, NULL);
 
 --insert en cuenta_tarjeta
-select*from cuenta_tarjeta
+select * from cuenta_tarjeta
 insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1), 
                                                         (5,4),
                                                         (4,2),
