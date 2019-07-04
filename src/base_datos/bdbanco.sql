@@ -335,14 +335,6 @@ insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solic
                     (default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
                     (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 5, 'N'),
                     (default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
-                    (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
-                    (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
-                    (default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
-                    (default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
-                    (default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
 
 --insert cuota
 select*from cuota 
@@ -367,12 +359,35 @@ insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencim
 
 
 --insert en movimiento
+
 select*from movimiento
-insert into movimiento values();
+insert into movimiento values
+(default, null, 1, 1, null, 1, null, null, 1, 50.5, '2019/05/20', null ),
+(default, null, 2, 1, null, 2, null, null, 2, 50.5, '2019/05/21', null ),
+(default, null, 3, 1, null, 3, null, null, 3, 50.5, '2019/05/22', null ),
+(default, null, 4, 2, 4, null, null, null, 4, 50.5, '2019/05/23', null ),
+(default, null, 3, 2, 4, null, null, null, 5, 50.5, '2019/05/24', null ),
+(default, null, 5, 2, 5, null, null, 1,    6, 50.5, '2019/05/25', null );
 
 --insert movimiento_frecuente
+CREATE TABLE MOVIMIENTO_FRECUENTE (
+    id                      SERIAL              PRIMARY KEY,
+    cliente_id              INT                 NOT NULL REFERENCES CLIENTE,
+    tipo_movimiento_id      INT                 NOT NULL REFERENCES TIPO_MOVIMIENTO,
+    cuenta_id               INT                 NOT NULL REFERENCES CUENTA,
+    cuenta_destino_id       INT                 NULL REFERENCES CUENTA,
+    cuota_id                INT                 NULL REFERENCES CUOTA,
+    servicio_brindado_id    INT                 NULL REFERENCES SERVICIO_BRINDADO,
+    monto                   MONEY               NULL 
+);
+
 select*from MOVIMIENTO_FRECUENTE
-insert into movimiento_frecuente() values ();
+insert into movimiento_frecuente values 
+(default, 1, 1,1, null, null, null, 70.5 ),
+(default, 2, 1,1, null, null, null, 70.5 ),
+(default, 3, 1,2, null, null, null, 70.5 ),
+(default, 4, 2,3, 1, null, null, 60.23 ),
+(default, 5, 2,6, 1, null, null, 60.23 );
 
 
 
@@ -520,6 +535,7 @@ Begin
 	where m.canal_id=canal and tp.id=tipo;
 end;
 $$ language 'plpgsql'
+
                                                         
 -- Cada vez que se registre un prestamo se genere su programacion de cuotas
 create or replace function tg_fn_generar_cronograma() returns trigger as
