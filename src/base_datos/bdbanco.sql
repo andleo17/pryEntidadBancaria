@@ -403,4 +403,26 @@ values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. B
 
 --insert en cliente
 select*from cliente
-insert into cliente()
+insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_paterno, apellido_materno, fecha_nacimiento, direccion, correo,
+                    telefono, estado) values(DEFAULT, '1', '76453287', 'Andres Sergio', 'Roldan', 'Cabrera', '01/07/1999', 'Las Brisas #232', 
+                    'andresitops@gmail.com', '988237673', true),
+                    (DEFAULT, '2', '11233445562', 'TELEFONOS SARA', NULL, NULL, '04/02/16', 'Los Laaures #344', 'telefono@gmail.com',
+                    '987654321', 'true'),
+                    (DEFAULT, '1', '76454587', 'Pedro Sergio', 'Benel', 'Cabrera', '01/03/1997', 'Las Castros #232', 
+                    'teamo@gmail.com', '988197673', TRUE),
+                    (DEFAULT, '1', '75453287', 'Camilo Fernando', 'Castañeda', 'Cacho', '19/11/1999', 'Naranjos #932', 
+                    'playboy@gmail.com', '988528673', true),
+                    (DEFAULT, '1', '76111287', 'Luis Javier', 'Ica', 'Bances', '29/01/1994', 'Pedro Ruiz #232', 
+                    'javilu@gmail.com', '981107673', true),
+                    (DEFAULT, '2', '17645328701', 'Agua Perú', NULL, NULL, '11/10/1979', 'Banlta #1232', 
+                    'aguita@gmail.com', '988007173', true);
+
+--insert into servicio
+insert into servicio values
+(default, 1, 'Agua'),
+(default, 2, 'Agua'),
+(default, 2, 'Luz'),
+(default, 3, 'Luz'), 
+(default, 4, 'Agua'),
+(default, 5, 'Luz'),
+(default, 6, 'Luz'); 
