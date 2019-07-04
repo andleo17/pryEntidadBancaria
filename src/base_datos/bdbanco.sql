@@ -392,14 +392,14 @@ insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DE
 
 --insert into empleados
 select * from empleados
-insert into empleado 
-values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. Bolognesi 359', 'rsanchez@gmail.com','958769569',true),
-(default, '78964509', 'Camila', 'Requejo', 'Montenegro', '1990/02/15', 'Prolong. Bolognesi 709', 'ecieza9@gmail.com', '985864891', true),
-(default, '78964508', 'Eduardo', 'Cieza', 'Robles', '1993/06/19', 'Luis Gonzales 500', 'ecieza8@gmail.com', '985864892', true),
-(default, '78964507', 'Rocío', 'Melendrez', 'Robles', '1990/12/20', 'Av. Bolognesi 710', 'ecieza7@gmail.com', '985864893', true),
-(default, '78964506', 'Eduardo', 'Cieza', 'Robles', '1995/01/23', 'Brr. San Eduardo 232', 'ecieza6@gmail.com', '985864894', true),
-(default, '78964503', 'Eduardo', 'Balta', 'Robles', '1990/03/22', 'Av. Balta 701', 'ecieza5@gmail.com', '985864895', false),
-(default, '78964501', 'Paola', 'Bolognesi', 'Lapoint', '1995/06/17', 'Av. Bolognesi 623', 'ecieza4@gmail.com', '985864896', true);
+insert into empleado (id, numero_documento, nombres, apellido_paterno, apellido_materno, fecha_nacimiento, direccion, correo, telefono, estado) values 
+                    (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. Bolognesi 359', 'rsanchez@gmail.com','958769569',true),
+                    (default, '78964509', 'Camila', 'Requejo', 'Montenegro', '1990/02/15', 'Prolong. Bolognesi 709', 'ecieza9@gmail.com', '985864891', true),
+                    (default, '78964508', 'Eduardo', 'Cieza', 'Robles', '1993/06/19', 'Luis Gonzales 500', 'ecieza8@gmail.com', '985864892', true),
+                    (default, '78964507', 'Rocío', 'Melendrez', 'Robles', '1990/12/20', 'Av. Bolognesi 710', 'ecieza7@gmail.com', '985864893', true),
+                    (default, '78964506', 'Eduardo', 'Cieza', 'Robles', '1995/01/23', 'Brr. San Eduardo 232', 'ecieza6@gmail.com', '985864894', true),
+                    (default, '78964503', 'Eduardo', 'Balta', 'Robles', '1990/03/22', 'Av. Balta 701', 'ecieza5@gmail.com', '985864895', false),
+                    (default, '78964501', 'Paola', 'Bolognesi', 'Lapoint', '1995/06/17', 'Av. Bolognesi 623', 'ecieza4@gmail.com', '985864896', true);
 
 --insert en cliente
 select*from cliente
@@ -420,7 +420,7 @@ insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_pat
 
 
 --insert into servicio
-insert into servicio values
+insert into servicio (id, cliente_id, descripcion) values
                     (default, 1, 'Agua'),
                     (default, 2, 'Luz'),
                     (default, 3, 'Movistar Móvil Postpago'),
@@ -429,15 +429,15 @@ insert into servicio values
                     (default, 4, 'Entel Fijo');
 
 --insert into servicio_brindado
-insert into servicio_brindado values 
-(default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
-(default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
-(default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
-(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
-(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
-(default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
-(default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
-(default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
+insert into servicio_brindado (id, servicio_id, usuario, costo, fecha_facturacion, fecha_pago) values 
+                    (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
+                    (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
+                    (default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
+                    (default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
+                    (default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
 
 
 --insert en cuenta
@@ -468,10 +468,11 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
                                                         (4,5);
 
 --insert en prestamo
-insert into prestamo values 
-(default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
-(default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 15, 'N'),
-(default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
+insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solicitud, fecha_aprobacion, monto_total,tasa_mensual,
+                    numero_cuota, estado) values 
+                    (default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
+                    (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 15, 'N'),
+                    (default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
                     (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
                     (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
                     (default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
@@ -483,7 +484,9 @@ insert into prestamo values
 
 --insert cuota
 select*from cuota 
-insert into cuota() values ();
+insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencimiento, fecha_pago, monto_pago) 
+            values 
+            (DEFAULT, 1, );
 
 
 --insert en movimiento
