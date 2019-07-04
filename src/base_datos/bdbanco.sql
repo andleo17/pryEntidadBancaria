@@ -391,4 +391,10 @@ insert into marca(id, descripcion) values (DEFAULT, 'Visa'),
 
 --insert en sucursal
 select*from sucursal
-insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DEFAULT, '140101','Sucursar secundaria del Banco en Chiclayo', 'Avenida Banlta #345', '979815647')
+insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DEFAULT, '140101','Sucursar secundaria del Banco en Chiclayo', 'Avenida Banlta #345', '979815647'),
+                                                (DEFAULT, '140101','Sucursar principal del Banco en Chiclayo', 'Salavaery #345', '979810047'),
+                                                (DEFAULT, '150101','Sucursar principal del Banco', 'Javier Prado #1345', '972851747');
+
+--insert en cliente
+select*from cliente
+insert into cliente()
