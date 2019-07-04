@@ -395,18 +395,8 @@ insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DE
                                                 (DEFAULT, '140101','Sucursar principal del Banco en Chiclayo', 'Salavaery #345', '979810047'),
                                                 (DEFAULT, '150101','Sucursar principal del Banco', 'Javier Prado #1345', '972851747');
 
---insert en cliente
-select*from cliente
-insert into cliente()
-insert into ubigeo (id, departamentoid, provinciaid, distrito) values ('130101', 1, 1, 'Chiclayo'),
-					       			      ('130103', 1, 1, 'Eten'),
-					       			      ('130116', 1, 1, 'Cayaltí'),
-					       			      ('130101', 1, 1, 'Chiclayo'),
-					       			      ('130201', 1, 2, 'Ferreñafe');
-
 --insert into empleados
 select * from empleados
-
 insert into empleado 
 values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. Bolognesi 359', 'rsanchez@gmail.com','958769569',true),
 (default, '78964509', 'Camila', 'Requejo', 'Montenegro', '1990/02/15', 'Prolong. Bolognesi 709', 'ecieza9@gmail.com', '985864891', true),
@@ -416,4 +406,6 @@ values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. B
 (default, '78964503', 'Eduardo', 'Balta', 'Robles', '1990/03/22', 'Av. Balta 701', 'ecieza5@gmail.com', '985864895', false),
 (default, '78964501', 'Paola', 'Bolognesi', 'Lapoint', '1995/06/17', 'Av. Bolognesi 623', 'ecieza4@gmail.com', '985864896', true);
 
---insert into 
+--insert en cliente
+select*from cliente
+insert into cliente()
