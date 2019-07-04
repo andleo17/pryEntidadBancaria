@@ -186,145 +186,7 @@ CREATE TABLE MOVIMIENTO_FRECUENTE (
 
 alter table movimiento_frecuente ADD monto money null; 
 
---consultar prestamos por cliente
-create or replace function fn_consultar_prestamos_por_cliente(dni varchar) 
-returns table( des varchar, f_solicitud date, f_aprobacion date, monto money, tasa float, cuotas int, est char ) as
-$$
-Declare
-	id int = (select c.id from cliente c where c.numero_documento=dni);
-Begin
-	return query
-	select tp.descripcion, p.fecha_solicitud, p.fecha_aprobacion, p.monto_total,  p.tasa_mensual, p.numero_cuotas, p.estado
-	from prestamo p 
-	inner join tipo_prestamo tp on p.tipo_prestamo_id=tp.id 
-	where p.cliente_id=id;
-end;
-$$ language 'plpgsql'
-
---consultar movimientos por canal
-create or replace function fn_consultar_movimientos_por_canal ( ident int ) 
-returns table ( descrip varchar, numero varchar, monto money, fecha date ) as 
-$$
-Declare
-Begin
-	return query
-	select tp.descripcion, c.numero, m.monto, m.fecha from movimiento m 
-	inner join tipo_movimiento tp on m.tipo_movimiento_id=tp.id
-	inner join cuenta c on m.cuenta_id=c.id
-	where m.canal_id=ident;
-end;
-$$ language 'plpgsql'
-
---consultar cuenta por sucursal
-create or replace function fn_consultar_cuenta_por_sucursal( cod int ) 
-returns table ( nombre text, numero varchar, descrip_tm varchar, descrip_sucursal varchar, descrip_dpto varchar, descrip_prov varchar ) 
-as
-$$
-Declare	
-Begin
-	return query
-	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, ct.numero, tm.descripcion, s.descripcion,
-	dpto.descripcion , p.descripcion
-	from cuenta ct
-	inner join cliente c on ct.cliente_id=c.id
-	inner join tipo_moneda tm on ct.tipo_moneda_id=tm.id
-	inner join sucursal s on ct.sucursal_id=s.id
-	inner join ubigeo u on s.ubigeo_id=u.id
-	inner join departamento dpto on u.departamento_id=dpto.id
-	inner join provincia p on u.provincia_id=p.id
-	where s.id=cod;
-	
-end;
-$$ language 'plpgsql'
-
---consultar cuenta por moneda
-create or replace function fn_consultar_cuenta_por_moneda_cliente( cod varchar, dni varchar ) 
-returns table ( nom text, numero_cuenta varchar, descrip varchar ) as
-$$
-Declare
-	
-Begin
-	return query
-	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, ct.numero, tm.descripcion from cuenta ct
-	inner join cliente c on ct.cliente_id=c.id
-	inner join tipo_moneda tm on ct.tipo_moneda_id=tm.id
-	where tm.codigo=cod and c.numero_documento=dni;
-	
-end;
-$$ language 'plpgsql'
-
---consultar movimientos frecuentes
-create or replace function fn_consultar_movimientos_frecuentes( dni varchar ) 
-returns table (nom text, ) as
-$$
-Declare
-	id int = (select id from cliente where numero_documento=dni);
-Begin
-	return query
-	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, cnt.numero from movimiento_frecuente mf
-	inner join cliente c on mf.cliente_id=c.id
-	inner join tipo_movimiento tm on mf.tipo_movimiento_id=tm.id
-	inner join cuenta cnt on mf.cuenta_id=cnt.id
-	where c.id=id;
-	
-end;
-$$ language 'plpgsql'
-
---conocer mes 
-Create or replace function fn_nombre_mes(mes_num int) returns character varying as
-$$
-Declare
-nom_mes character varying;
-Begin
-	case mes_num
-		when 1 then nom_mes='Enero';
-		when 2 then nom_mes='Febrero';
-		when 3 then nom_mes='Marzo';
-		when 4 then nom_mes='Abril';
-		when 5 then nom_mes='Mayo';
-		when 6 then nom_mes='Junio';
-		when 7 then nom_mes='Julio';
-		when 8 then nom_mes='Agosto';
-		when 9 then nom_mes='Setiembre';
-		when 10 then nom_mes='Octubre';
-		when 11 then nom_mes='Noviembre';
-		when 12 then nom_mes='Diciembre';
-		else nom_mes='Numero inválido';
-	end case;
-	return nom_mes;
-end;
-$$ language 'plpgsql';
-
---consultar tarjeta por tipo y por marca juntos
-create or replace function fn_consultar_cuenta_por_moneda_cliente( cod int, marca_nombre varchar ) 
-returns table ( numero varchar, mes_exp varchar , año_exp int, cvv char(3), estado boolean, f_adqui date ) as
-$$
-Declare
-	id_marca int = (select id from marca where descripcion=marca_nombre);
-Begin
-	return query
-	select t.numero, (select fn_nombre_mes(t.mes_expiracion)) as mes_venc , t.año_expiracion, t.cvv, t.estado, t.fecha_adquisicion from tarjeta t 
-	inner join tipo_tarjeta tt on t.tipo_tarjeta_id=tt.id
-	inner join marca m on t.marca_id=m.id
-	where m.id=id_marca and tt.id=cod;
-	
-end;
-$$ language 'plpgsql'
-
---consultar movimiento por tipo, por canal
-create or replace function fn_consultar_movimientos_por_canal_tipo_movimiento ( tipo int, canal int ) 
-returns table ( numero_cuenta varchar, monto money, fecha date ) as 
-$$
-Declare
-Begin
-	return query
-	select c.numero, m.monto, m.fecha from movimiento m
-	inner join tipo_movimiento tp on m.tipo_movimiento_id=tp.id
-	inner join cuenta c on m.cuenta_id=c.id
-	inner join canal cn on m.canal_id=cn.id
-	where m.canal_id=canal and tp.id=tipo;
-end;
-$$ language 'plpgsql'
+------------------------------------------------------------ E J E M P L O S ---------------------------------------------------------------
 
 --insertando en tabla canal
 insert into canal (descripcion) values ('Agente'),
@@ -471,14 +333,29 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
 insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solicitud, fecha_aprobacion, monto_total,tasa_mensual,
                     numero_cuota, estado) values 
                     (default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
-                    (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 15, 'N'),
+                    (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 5, 'N'),
                     (default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
 
 --insert cuota
 select*from cuota 
 insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencimiento, fecha_pago, monto_pago) 
             values 
-            (DEFAULT, 1, );
+            (DEFAULT, 1, 1, 150, 0, '03/04/2019', '01/04/2019', 150 );
+            (DEFAULT, 1, 2, 150, 0, '03/05/2019', '03/05/2019', 150 );
+            (DEFAULT, 1, 3, 150, 52.5, '03/06/2019', '10/06/2019', 202.5 );
+            (DEFAULT, 1, 4, 150, 0, '03/07/2019', '01/07/2019', 150 );
+            (DEFAULT, 1, 5, 150, 0, '03/08/2019', null , NULL );
+            (DEFAULT, 1, 6, 150, 0, '03/09/2019', null , NULL );
+            (DEFAULT, 1, 7, 150, 0, '03/10/2019', null , NULL );
+            (DEFAULT, 1, 8, 150, 0, '03/11/2019', null , NULL );
+            (DEFAULT, 1, 9, 150, 0, '03/12/2019', null , NULL );
+            (DEFAULT, 1, 10, 150, 0, '03/01/2020',null , NULL );
+            (DEFAULT, 2, 1, 375, 0, '23/05/2019', '20/05/2019' , 375 );
+            (DEFAULT, 2, 2, 375, 0, '23/06/2019', '23/06/2019' , 375 );
+            (DEFAULT, 2, 3, 375, 0, '23/07/2019', null, NULL );
+            (DEFAULT, 2, 4, 375, 0, '23/08/2019', null, NULL );
+            (DEFAULT, 2, 5, 375, 0, '23/09/2019', null, NULL);
+
 
 
 --insert en movimiento
@@ -516,7 +393,149 @@ insert into movimiento values
 select*from MOVIMIENTO_FRECUENTE
 insert into movimiento_frecuente() values ();
 
-                                                        
+
+
+
+----------------------------------- C O N S U L T A S -----------------------------------------------------------------------                                                        
+--consultar prestamos por cliente
+create or replace function fn_consultar_prestamos_por_cliente(dni varchar) 
+returns table( des varchar, f_solicitud date, f_aprobacion date, monto money, tasa float, cuotas int, est char ) as
+$$
+Declare
+	id int = (select c.id from cliente c where c.numero_documento=dni);
+Begin
+	return query
+	select tp.descripcion, p.fecha_solicitud, p.fecha_aprobacion, p.monto_total,  p.tasa_mensual, p.numero_cuotas, p.estado
+	from prestamo p 
+	inner join tipo_prestamo tp on p.tipo_prestamo_id=tp.id 
+	where p.cliente_id=id;
+end;
+$$ language 'plpgsql'
+
+--consultar movimientos por canal
+create or replace function fn_consultar_movimientos_por_canal ( ident int ) 
+returns table ( descrip varchar, numero varchar, monto money, fecha date ) as 
+$$
+Declare
+Begin
+	return query
+	select tp.descripcion, c.numero, m.monto, m.fecha from movimiento m 
+	inner join tipo_movimiento tp on m.tipo_movimiento_id=tp.id
+	inner join cuenta c on m.cuenta_id=c.id
+	where m.canal_id=ident;
+end;
+$$ language 'plpgsql'
+
+--consultar cuenta por sucursal
+create or replace function fn_consultar_cuenta_por_sucursal( cod int ) 
+returns table ( nombre text, numero varchar, descrip_tm varchar, descrip_sucursal varchar, descrip_dpto varchar, descrip_prov varchar ) 
+as
+$$
+Declare	
+Begin
+	return query
+	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, ct.numero, tm.descripcion, s.descripcion,
+	dpto.descripcion , p.descripcion
+	from cuenta ct
+	inner join cliente c on ct.cliente_id=c.id
+	inner join tipo_moneda tm on ct.tipo_moneda_id=tm.id
+	inner join sucursal s on ct.sucursal_id=s.id
+	inner join ubigeo u on s.ubigeo_id=u.id
+	inner join departamento dpto on u.departamento_id=dpto.id
+	inner join provincia p on u.provincia_id=p.id
+	where s.id=cod;
+	
+end;
+$$ language 'plpgsql'
+
+--consultar cuenta por moneda
+create or replace function fn_consultar_cuenta_por_moneda_cliente( cod varchar, dni varchar ) 
+returns table ( nom text, numero_cuenta varchar, descrip varchar ) as
+$$
+Declare
+	
+Begin
+	return query
+	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, ct.numero, tm.descripcion from cuenta ct
+	inner join cliente c on ct.cliente_id=c.id
+	inner join tipo_moneda tm on ct.tipo_moneda_id=tm.id
+	where tm.codigo=cod and c.numero_documento=dni;
+	
+end;
+$$ language 'plpgsql'
+
+--consultar movimientos frecuentes
+create or replace function fn_consultar_movimientos_frecuentes( dni varchar ) 
+returns table (nom text, ) as
+$$
+Declare
+	id int = (select id from cliente where numero_documento=dni);
+Begin
+	return query
+	select c.nombres ||' '||c.apellido_paterno||' '||c.apellido_materno as nombre, cnt.numero from movimiento_frecuente mf
+	inner join cliente c on mf.cliente_id=c.id
+	inner join tipo_movimiento tm on mf.tipo_movimiento_id=tm.id
+	inner join cuenta cnt on mf.cuenta_id=cnt.id
+	where c.id=id;
+	
+end;
+$$ language 'plpgsql'
+
+--conocer mes 
+Create or replace function fn_nombre_mes(mes_num int) returns character varying as
+$$
+Declare
+nom_mes character varying;
+Begin
+	case mes_num
+		when 1 then nom_mes='Enero';
+		when 2 then nom_mes='Febrero';
+		when 3 then nom_mes='Marzo';
+		when 4 then nom_mes='Abril';
+		when 5 then nom_mes='Mayo';
+		when 6 then nom_mes='Junio';
+		when 7 then nom_mes='Julio';
+		when 8 then nom_mes='Agosto';
+		when 9 then nom_mes='Setiembre';
+		when 10 then nom_mes='Octubre';
+		when 11 then nom_mes='Noviembre';
+		when 12 then nom_mes='Diciembre';
+		else nom_mes='Numero inválido';
+	end case;
+	return nom_mes;
+end;
+$$ language 'plpgsql';
+
+--consultar tarjeta por tipo y por marca juntos
+create or replace function fn_consultar_cuenta_por_moneda_cliente( cod int, marca_nombre varchar ) 
+returns table ( numero varchar, mes_exp varchar , año_exp int, cvv char(3), estado boolean, f_adqui date ) as
+$$
+Declare
+	id_marca int = (select id from marca where descripcion=marca_nombre);
+Begin
+	return query
+	select t.numero, (select fn_nombre_mes(t.mes_expiracion)) as mes_venc , t.año_expiracion, t.cvv, t.estado, t.fecha_adquisicion from tarjeta t 
+	inner join tipo_tarjeta tt on t.tipo_tarjeta_id=tt.id
+	inner join marca m on t.marca_id=m.id
+	where m.id=id_marca and tt.id=cod;
+	
+end;
+$$ language 'plpgsql'
+
+--consultar movimiento por tipo, por canal
+create or replace function fn_consultar_movimientos_por_canal_tipo_movimiento ( tipo int, canal int ) 
+returns table ( numero_cuenta varchar, monto money, fecha date ) as 
+$$
+Declare
+Begin
+	return query
+	select c.numero, m.monto, m.fecha from movimiento m
+	inner join tipo_movimiento tp on m.tipo_movimiento_id=tp.id
+	inner join cuenta c on m.cuenta_id=c.id
+	inner join canal cn on m.canal_id=cn.id
+	where m.canal_id=canal and tp.id=tipo;
+end;
+$$ language 'plpgsql'
                                                         
 
 
