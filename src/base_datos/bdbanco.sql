@@ -410,3 +410,17 @@ insert into ubigeo (id, departamentoid, provinciaid, distrito) values ('130101',
 					       			      ('130116', 1, 1, 'Cayaltí'),
 					       			      ('130101', 1, 1, 'Chiclayo'),
 					       			      ('130201', 1, 2, 'Ferreñafe');
+
+--insert into empleados
+select * from empleados
+
+insert into empleado 
+values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. Bolognesi 359', 'rsanchez@gmail.com','958769569',true),
+(default, '78964509', 'Camila', 'Requejo', 'Montenegro', '1990/02/15', 'Prolong. Bolognesi 709', 'ecieza9@gmail.com', '985864891', true),
+(default, '78964508', 'Eduardo', 'Cieza', 'Robles', '1993/06/19', 'Luis Gonzales 500', 'ecieza8@gmail.com', '985864892', true),
+(default, '78964507', 'Rocío', 'Melendrez', 'Robles', '1990/12/20', 'Av. Bolognesi 710', 'ecieza7@gmail.com', '985864893', true),
+(default, '78964506', 'Eduardo', 'Cieza', 'Robles', '1995/01/23', 'Brr. San Eduardo 232', 'ecieza6@gmail.com', '985864894', true),
+(default, '78964503', 'Eduardo', 'Balta', 'Robles', '1990/03/22', 'Av. Balta 701', 'ecieza5@gmail.com', '985864895', false),
+(default, '78964501', 'Paola', 'Bolognesi', 'Lapoint', '1995/06/17', 'Av. Bolognesi 623', 'ecieza4@gmail.com', '985864896', true);
+
+--insert into 
