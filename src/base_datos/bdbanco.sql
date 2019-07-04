@@ -35,11 +35,6 @@ CREATE TABLE MARCA (
     descripcion             VARCHAR(30)         NOT NULL
 );
 
-CREATE TABLE USUARIO (
-    id                      SERIAL              PRIMARY KEY,
-    codigo_usuario          VARCHAR(40)         NOT NULL
-);
-
 CREATE TABLE UBIGEO (
     id                      CHAR(6)             PRIMARY KEY,
     departamento            VARCHAR(25)                 NOT NULL REFERENCES DEPARTAMENTO,
@@ -97,7 +92,7 @@ CREATE TABLE SERVICIO (
 CREATE TABLE SERVICIO_BRINDADO (
     id                      SERIAL              PRIMARY KEY,
     servicio_id             INT                 NOT NULL REFERENCES SERVICIO,
-    usuario_id              INT                 NOT NULL REFERENCES USUARIO,
+    usuario                 VARCHAR(9)          NOT NULL,
     costo                   MONEY               NOT NULL,
     fecha_facturacion       DATE                NOT NULL,
     fecha_pago              DATE                NULL CHECK (fecha_pago >= fecha_facturacion)
@@ -423,6 +418,26 @@ insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_pat
                     (DEFAULT, '2', '17645328701', 'Agua Perú', NULL, NULL, '11/10/1979', 'Banlta #1232', 
                     'aguita@gmail.com', '988007173', true);
 
+
+--insert into servicio
+insert into servicio values
+                    (default, 1, 'Agua'),
+                    (default, 2, 'Luz'),
+                    (default, 3, 'Movistar Móvil Postpago'),
+                    (default, 3, 'Movistar Fijo'), 
+                    (default, 4, 'Entel Móvil Postpago'),
+                    (default, 4, 'Entel Fijo');
+
+--insert into servicio_brindado
+insert into servicio_brindado values 
+                    (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
+                    (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
+                    (default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
+                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
+                    (default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
+                    (default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
 --insert en cuenta
 select*from cuenta 
 insert into cuenta(id, cliente_id, tipo_modena_id, sucursal_id, numero, estado, fecha_creacion, fecha_anulacion, cci, saldo, saldo_usado, 
@@ -450,19 +465,5 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
                                                         (4,2),
                                                         (4,5);
                                                         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
