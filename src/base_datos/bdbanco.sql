@@ -471,7 +471,7 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
 insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solicitud, fecha_aprobacion, monto_total,tasa_mensual,
                     numero_cuota, estado) values 
                     (default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
-                    (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 15, 'N'),
+                    (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 5, 'N'),
                     (default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
                     (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
                     (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
@@ -486,7 +486,22 @@ insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solic
 select*from cuota 
 insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencimiento, fecha_pago, monto_pago) 
             values 
-            (DEFAULT, 1, );
+            (DEFAULT, 1, 1, 150, 0, '03/04/2019', '01/04/2019', 150 );
+            (DEFAULT, 1, 2, 150, 0, '03/05/2019', '03/05/2019', 150 );
+            (DEFAULT, 1, 3, 150, 52.5, '03/06/2019', '10/06/2019', 202.5 );
+            (DEFAULT, 1, 4, 150, 0, '03/07/2019', '01/07/2019', 150 );
+            (DEFAULT, 1, 5, 150, 0, '03/08/2019', null , NULL );
+            (DEFAULT, 1, 6, 150, 0, '03/09/2019', null , NULL );
+            (DEFAULT, 1, 7, 150, 0, '03/10/2019', null , NULL );
+            (DEFAULT, 1, 8, 150, 0, '03/11/2019', null , NULL );
+            (DEFAULT, 1, 9, 150, 0, '03/12/2019', null , NULL );
+            (DEFAULT, 1, 10, 150, 0, '03/01/2020',null , NULL );
+            (DEFAULT, 2, 1, 375, 0, '23/05/2019', '20/05/2019' , 375 );
+            (DEFAULT, 2, 2, 375, 0, '23/06/2019', '23/06/2019' , 375 );
+            (DEFAULT, 2, 3, 375, 0, '23/07/2019', null, NULL );
+            (DEFAULT, 2, 4, 375, 0, '23/08/2019', null, NULL );
+            (DEFAULT, 2, 5, 375, 0, '23/09/2019', null, NULL);
+
 
 
 --insert en movimiento
