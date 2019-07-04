@@ -521,5 +521,47 @@ Begin
 end;
 $$ language 'plpgsql'
                                                         
+-- Cada vez que se registre un prestamo se genere su programacion de cuotas
+create or replace function tg_fn_generar_cronograma() returns trigger as
+$$
+DECLARE
+    i int = 1;
+    monto_por_cuota int;
+    fecha_vencimiento date = new.fecha_aprobacion;
+BEGIN
+    monto_por_cuota = new.monto_total / new.numero_cuotas + new.monto_total * new.tasa_mensual;
+    FOR i in 1..new.numero_cuotas loop
+        fecha_vencimiento = fecha_vencimiento + interval '1 mon';
+        insert into cuota values (default, new.id, i, monto, 0, fecha_vencimiento, null, null);
+    end loop;
+    return new;
+END;
+$$
+LANGUAGE 'plpgsql'
+
+create TRIGGER tg_generar_cronograma after insert on prestamo
+for each row EXECUTE PROCEDURE tg_fn_generar_cronograma();
+
+
+--Cada vez que se registre un nuevo movimiento por parte del cliente, se debe disminuir su 
+--saldo en su cuenta seleccionada (si este paga con una de sus cuentas).
+create or replace FUNCTION movimiento_saldo_menos() returns TRIGGER as
+$$
+    DECLARE
+        saldo money;
+    BEGIN
+        select saldo into 
+        IF (new.cuenta_id is not null) THEN
+
+        end if;
+    end;
+$$
+language 'plpgsql' 
+
+
+
+
+
+
 
 
