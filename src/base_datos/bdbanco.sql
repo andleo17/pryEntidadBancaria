@@ -392,8 +392,8 @@ insert into marca(id, descripcion) values (DEFAULT, 'Visa'),
 --insert en sucursal
 select*from sucursal
 insert into sucursal(id, ubigeo_id, descripcion, direccion, telefono) values (DEFAULT, '140101','Sucursar secundaria del Banco en Chiclayo', 'Avenida Banlta #345', '979815647'),
-                                                (DEFAULT, '140101','Sucursar principal del Banco en Chiclayo', 'Salavaery #345', '979810047'),
-                                                (DEFAULT, '150101','Sucursar principal del Banco', 'Javier Prado #1345', '972851747');
+                                                (DEFAULT, '140101','Sucursal principal del Banco en Chiclayo', 'Salavaery #345', '979810047'),
+                                                (DEFAULT, '150101','Sucursal principal del Banco', 'Javier Prado #1345', '972851747');
 
 --insert into empleados
 select * from empleados
@@ -409,7 +409,8 @@ values (default, '69563233', 'Ramiro', 'Sanchez', 'Tuesta', '1992/05/15', 'Av. B
 --insert en cliente
 select*from cliente
 insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_paterno, apellido_materno, fecha_nacimiento, direccion, correo,
-                    telefono, estado) values(DEFAULT, '1', '76453287', 'Andres Sergio', 'Roldan', 'Cabrera', '01/07/1999', 'Las Brisas #232', 
+                    telefono, estado) values
+                    (DEFAULT, '1', '76453287', 'Andres Sergio', 'Roldan', 'Cabrera', '01/07/1999', 'Las Brisas #232', 
                     'andresitops@gmail.com', '988237673', true),
                     (DEFAULT, '2', '11233445562', 'TELEFONOS SARA', NULL, NULL, '04/02/16', 'Los Laaures #344', 'telefono@gmail.com',
                     '987654321', 'true'),
@@ -421,3 +422,47 @@ insert into cliente(id, tipo_cliente_id, numero_documento, nombres, apellido_pat
                     'javilu@gmail.com', '981107673', true),
                     (DEFAULT, '2', '17645328701', 'Agua Perú', NULL, NULL, '11/10/1979', 'Banlta #1232', 
                     'aguita@gmail.com', '988007173', true);
+
+--insert en cuenta
+select*from cuenta 
+insert into cuenta(id, cliente_id, tipo_modena_id, sucursal_id, numero, estado, fecha_creacion, fecha_anulacion, cci, saldo, saldo_usado, 
+                    saldo_total) VALUES
+                    (DEFAULT, 1, 1, 2, '7683113097540', true, CURRENT_DATE, null, '003 768 013113097540', '0', null, null),
+                    (DEFAULT, 1, 3, 2, '7683113097444', true, CURRENT_DATE, null, '003 982 013116547540', '0', null, null),
+                    (DEFAULT, 2, 1, 2, '8583113097004', true, CURRENT_DATE, null, '003 102 765416547540', '0', null, null),
+                    (DEFAULT, 3, 1, 3, '8583003097004', true, CURRENT_DATE, null, '003 652 123416547540', '0', null, null),
+                    (DEFAULT, 6, 2, 1, '9983003097329', true, CURRENT_DATE, null, '003 992 993416547567', '0', null, null);
+
+--insert en tarjeta
+select*from tarjeta
+insert into tarjeta(id, tipo_tarjeta_id, marca_id, numero, mes_expiracion, año_expiracion, cvv, estado, fecha_adquisicion, fecha_anulacion)
+                    VALUES
+                    (DEFAULT, 1, 1, '4213 5500 5873 2387', 'enero', '2024', '986', TRUE, CURRENT_DATE, null),
+                    (DEFAULT, 1, 1, '4213 2980 0967 2347', 'febrero', '2023', '956', false, '02/02/2018', CURRENT_DATE),
+                    (DEFAULT, 2, 2, '4213 9876 1237 2347', 'marzo', '2023', '856', false, '02/02/2018', CURRENT_DATE),
+                    (DEFAULT, 2, 4, '4213 7834 1237 1234', 'diciembre', '2024', '324', true, CURRENT_DATE, NULL),
+                    (DEFAULT, 1, 3, '4213 7834 1237 1234', 'octubre', '2024', '774', true, CURRENT_DATE, NULL);
+
+--insert en cuenta_tarjeta
+select*from cuenta_tarjeta
+insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1), 
+                                                        (5,4),
+                                                        (4,2),
+                                                        (4,5);
+                                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
