@@ -548,19 +548,27 @@ for each row EXECUTE PROCEDURE tg_fn_generar_cronograma();
 
 --Cada vez que se registre un nuevo movimiento por parte del cliente, se debe disminuir su 
 --saldo en su cuenta seleccionada (si este paga con una de sus cuentas).
-create or replace FUNCTION movimiento_saldo_menos() returns TRIGGER as
+create or replace FUNCTION movimiento_saldo() returns TRIGGER as
 $$
     DECLARE
-        saldo money;
+		monto_ money;
     BEGIN
-        select saldo into 
         IF (new.cuenta_id is not null) THEN
-		
+			if (select tipo_movimiento_id from movimiento) == 1 then
+				select monto into monto_ from movimiento where cuenta_id = new.cuenta_id and id = new.id;
+				update cuenta set saldo = saldo + monto_ where id = new.cuenta_id;
+			else
+				select monto into monto_ from movimiento where cuenta_id = new.cuenta_id and id = new.id;
+				update cuenta set saldo = saldo - monto_ where id = new.cuenta_id;
+			end if;
         end if;
+		return new;
     end;
 $$
-language 'plpgsql' 
+language 'plpgsql';
 
+Create trigger tr_update_monto_cuenta after insert on movimiento
+	for each row execute procedure movimiento_saldo();
 
 
 
