@@ -570,8 +570,22 @@ language 'plpgsql';
 Create trigger tr_update_monto_cuenta after insert on movimiento
 	for each row execute procedure movimiento_saldo();
 
+--Listar todos los clientes con mora
+create or replace function fn_clientes_mora() returns setof record as
+$$
+Declare
+Begin 
+return query
 
+	select cl.nombres ||' '|| cl.apellido_paterno ||' '|| cl.apellido_materno as nombre_cliente, cl.direccion, p.id as prestamoid, p.monto,ct.id, ct.monto_mora 
+	from cliente cl
+	inner join prestamo p on cl.id=p.cliente_id
+	inner join cuota ct on p.id = ct.prestamo_id
+	where cr.monto_mora>0;
 
+End;
+$$
+language 'plpgsql';
 
 
 
