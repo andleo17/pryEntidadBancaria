@@ -37,8 +37,8 @@ CREATE TABLE MARCA (
 
 CREATE TABLE UBIGEO (
     id                      CHAR(6)             PRIMARY KEY,
-    departamento            VARCHAR(25)                 NOT NULL REFERENCES DEPARTAMENTO,
-    provincia               VARCHAR(25)                 NOT NULL REFERENCES PROVINCIA,
+    departamento            VARCHAR(25)         NOT NULL,
+    provincia               VARCHAR(25)         NOT NULL,
     distrito                VARCHAR(60)         NOT NULL
 );
 
@@ -184,7 +184,6 @@ CREATE TABLE MOVIMIENTO_FRECUENTE (
     monto                   MONEY               NULL 
 );
 
-alter table movimiento_frecuente ADD monto money null; 
 
 ------------------------------------------------------------ E J E M P L O S ---------------------------------------------------------------
 
@@ -229,8 +228,8 @@ select * from ubigeo
 insert into ubigeo (id, departamento, provincia, distrito) values ('140101', ' Lambayeque', ' Chiclayo', 'Chiclayo'),
 					       			      ('130101 ', 'La Libertad ', ' Trujillo ', 'Trujillo'),
 					       			      ('150101', ' Lima', 'Lima ', 'Lima'),
-					       			      (' 040101', 'Arequipa ', 'Arequipa ', 'Arequipa'),
-					       			      (' 160101', 'Loreto ', 'Maynas ', 'Iquitos');
+					       			      ('040101', 'Arequipa ', 'Arequipa ', 'Arequipa'),
+					       			      ('160101', 'Loreto ', 'Maynas ', 'Iquitos');
 
 --insert en tipo_prestamo
 select*from tipo_prestamo 
@@ -242,7 +241,7 @@ insert into tipo_prestamo (id, descripcion) values (DEFAULT , 'Corto plazo'),
 --insert en marca
 select*from marca
 insert into marca(id, descripcion) values (DEFAULT, 'Visa'),
-                                            (DEFAUL, 'Dinners Club'),
+                                            (DEFAULT, 'Dinners Club'),
                                             (DEFAULT, 'MasterCard'),
                                             (DEFAULT, 'American Express');
 
@@ -292,19 +291,19 @@ insert into servicio (id, cliente_id, descripcion) values
 
 --insert into servicio_brindado
 insert into servicio_brindado (id, servicio_id, usuario, costo, fecha_facturacion, fecha_pago) values 
-                    (default, 1, 'WER5634', 25.3, '2019/04/31', '2019/05/03'), 
-                    (default, 1, 'TUR1235', 25.3, '2019/04/31', '2019/05/05'),
-                    (default, 2, 'TUR1235', 25.3, '2019/04/31', '2019/0/05'),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/01' ),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/02' ),
-                    (default, 3, '9586987856', 50.69, '2019/04/20','2019/05/10' ),
-                    (default, 4, '562310', 75.5, '2019/04/31', '2019/05/02'),
-                    (default, 4, '562345', 75.5, '2019/04/31', '2019/05/03');
+                    		(default, 1, 'WER5634', 25.3, '30/04/2019', '03/05/2019'),
+				(default, 1, 'TUR1235', 25.3, '30/04/2019', '05/05/2019'),
+                    		(default, 2, 'TUR1235', 25.3, '30/04/2019', '05/05/2019'),
+				(default, 3, '958697856', 50.69, '20/04/2019','01/05/2019' ),
+                    		(default, 3, '958697856', 50.69, '20/04/2019','02/05/2019' ),
+                    		(default, 3, '958697856', 50.69, '20/04/2019','10/05/2019' ),
+                    		(default, 4, '562310', 75.5, '30/04/2019', '02/05/2019'),
+                    		(default, 4, '562345', 75.5, '30/04/2019', '03/05/2019');
 
 
 --insert en cuenta
 select*from cuenta 
-insert into cuenta(id, cliente_id, tipo_modena_id, sucursal_id, numero, estado, fecha_creacion, fecha_anulacion, cci, saldo, saldo_usado, 
+insert into cuenta(id, cliente_id, tipo_moneda_id, sucursal_id, numero, estado, fecha_creacion, fecha_anulacion, cci, saldo, saldo_usado, 
                     saldo_total) VALUES
                     (DEFAULT, 1, 1, 2, '7683113097540', true, CURRENT_DATE, null, '003 768 013113097540', '0', null, null),
                     (DEFAULT, 1, 3, 2, '7683113097444', true, CURRENT_DATE, null, '003 982 013116547540', '0', null, null),
@@ -316,11 +315,11 @@ insert into cuenta(id, cliente_id, tipo_modena_id, sucursal_id, numero, estado, 
 select*from tarjeta
 insert into tarjeta(id, tipo_tarjeta_id, marca_id, numero, mes_expiracion, año_expiracion, cvv, estado, fecha_adquisicion, fecha_anulacion)
                     VALUES
-                    (DEFAULT, 1, 1, '4213 5500 5873 2387', 'enero', '2024', '986', TRUE, CURRENT_DATE, null),
-                    (DEFAULT, 1, 1, '4213 2980 0967 2347', 'febrero', '2023', '956', false, '02/02/2018', CURRENT_DATE),
-                    (DEFAULT, 2, 2, '4213 9876 1237 2347', 'marzo', '2023', '856', false, '02/02/2018', CURRENT_DATE),
-                    (DEFAULT, 2, 4, '4213 7834 1237 1234', 'diciembre', '2024', '324', true, CURRENT_DATE, NULL),
-                    (DEFAULT, 1, 3, '4213 7834 1237 1234', 'octubre', '2024', '774', true, CURRENT_DATE, NULL);
+                    (DEFAULT, 1, 1, '4213 5500 5873 2387', 1, '2024', '986', TRUE, CURRENT_DATE, null),
+                    (DEFAULT, 1, 1, '4213 2980 0967 2347', 2, '2023', '956', false, '02/02/2018', CURRENT_DATE),
+                    (DEFAULT, 2, 2, '4213 9876 1237 2347', 3, '2023', '856', false, '02/02/2018', CURRENT_DATE),
+                    (DEFAULT, 2, 4, '4213 7834 1237 1234', 12, '2024', '324', true, CURRENT_DATE, NULL),
+                    (DEFAULT, 1, 3, '4213 7834 1237 1234', 10, '2024', '774', true, CURRENT_DATE, NULL);
 
 --insert en cuenta_tarjeta
 select * from cuenta_tarjeta
@@ -331,36 +330,34 @@ insert into cuenta_tarjeta(cuenta_id, tarjeta_id) VALUES (1, 1),
 
 --insert en prestamo
 insert into prestamo (id, empleado_id, tipo_prestamo_id, cliente_id, fecha_solicitud, fecha_aprobacion, monto_total,tasa_mensual,
-                    numero_cuota, estado) values 
+                    numero_cuotas, estado) values 
                     (default, 1, 1, 1, '2019/02/20', '2019/03/03', 1000, 0.05, 10, 'N'),
                     (default, 2, 1, 2, '2019/02/21', '2019/03/04', 1500, 0.05, 5, 'N'),
                     (default, 3, 2, 3, '2019/02/22', '2019/03/15', 2000, 0.05, 20, 'N');
-
 --insert cuota
 select*from cuota 
 insert into cuota(id, prestamo_id, numero_cuota, monto, monto_mora, fecha_vencimiento, fecha_pago, monto_pago) 
             values 
-            (DEFAULT, 1, 1, 150, 0, '03/04/2019', '01/04/2019', 150 );
-            (DEFAULT, 1, 2, 150, 0, '03/05/2019', '03/05/2019', 150 );
-            (DEFAULT, 1, 3, 150, 52.5, '03/06/2019', '10/06/2019', 202.5 );
-            (DEFAULT, 1, 4, 150, 0, '03/07/2019', '01/07/2019', 150 );
-            (DEFAULT, 1, 5, 150, 0, '03/08/2019', null , NULL );
-            (DEFAULT, 1, 6, 150, 0, '03/09/2019', null , NULL );
-            (DEFAULT, 1, 7, 150, 0, '03/10/2019', null , NULL );
-            (DEFAULT, 1, 8, 150, 0, '03/11/2019', null , NULL );
-            (DEFAULT, 1, 9, 150, 0, '03/12/2019', null , NULL );
-            (DEFAULT, 1, 10, 150, 0, '03/01/2020',null , NULL );
-            (DEFAULT, 2, 1, 375, 0, '23/05/2019', '20/05/2019' , 375 );
-            (DEFAULT, 2, 2, 375, 0, '23/06/2019', '23/06/2019' , 375 );
-            (DEFAULT, 2, 3, 375, 0, '23/07/2019', null, NULL );
-            (DEFAULT, 2, 4, 375, 0, '23/08/2019', null, NULL );
+            (DEFAULT, 1, 1, 150, 0, '03/04/2019', '01/04/2019', 150 ),
+            (DEFAULT, 1, 2, 150, 0, '03/05/2019', '03/05/2019', 150 ),
+            (DEFAULT, 1, 3, 150, 52.5, '03/06/2019', '10/06/2019', 202.5 ),
+            (DEFAULT, 1, 4, 150, 0, '03/07/2019', '01/07/2019', 150 ),
+            (DEFAULT, 1, 5, 150, 0, '03/08/2019', null , NULL ),
+            (DEFAULT, 1, 6, 150, 0, '03/09/2019', null , NULL ),
+            (DEFAULT, 1, 7, 150, 0, '03/10/2019', null , NULL ),
+            (DEFAULT, 1, 8, 150, 0, '03/11/2019', null , NULL ),
+            (DEFAULT, 1, 9, 150, 0, '03/12/2019', null , NULL ),
+            (DEFAULT, 1, 10, 150, 0, '03/01/2020',null , NULL ),
+            (DEFAULT, 2, 1, 375, 0, '23/05/2019', '20/05/2019' , 375 ),
+            (DEFAULT, 2, 2, 375, 0, '23/06/2019', '23/06/2019' , 375 ),
+            (DEFAULT, 2, 3, 375, 0, '23/07/2019', null, NULL ),
+            (DEFAULT, 2, 4, 375, 0, '23/08/2019', null, NULL ),
             (DEFAULT, 2, 5, 375, 0, '23/09/2019', null, NULL);
-
 
 
 --insert en movimiento
 
-select*from movimiento
+select * from movimiento
 insert into movimiento values
 (default, null, 1, 1, null, 1, null, null, 1, 50.5, '2019/05/20', null ),
 (default, null, 2, 1, null, 2, null, null, 2, 50.5, '2019/05/21', null ),
@@ -370,16 +367,6 @@ insert into movimiento values
 (default, null, 5, 2, 5, null, null, 1,    6, 50.5, '2019/05/25', null );
 
 --insert movimiento_frecuente
-CREATE TABLE MOVIMIENTO_FRECUENTE (
-    id                      SERIAL              PRIMARY KEY,
-    cliente_id              INT                 NOT NULL REFERENCES CLIENTE,
-    tipo_movimiento_id      INT                 NOT NULL REFERENCES TIPO_MOVIMIENTO,
-    cuenta_id               INT                 NOT NULL REFERENCES CUENTA,
-    cuenta_destino_id       INT                 NULL REFERENCES CUENTA,
-    cuota_id                INT                 NULL REFERENCES CUOTA,
-    servicio_brindado_id    INT                 NULL REFERENCES SERVICIO_BRINDADO,
-    monto                   MONEY               NULL 
-);
 
 select*from MOVIMIENTO_FRECUENTE
 insert into movimiento_frecuente values 
@@ -387,7 +374,7 @@ insert into movimiento_frecuente values
 (default, 2, 1,1, null, null, null, 70.5 ),
 (default, 3, 1,2, null, null, null, 70.5 ),
 (default, 4, 2,3, 1, null, null, 60.23 ),
-(default, 5, 2,6, 1, null, null, 60.23 );
+(default, 5, 2,5, 1, null, null, 60.23 );
 
 
 
@@ -568,7 +555,7 @@ $$
     BEGIN
         select saldo into 
         IF (new.cuenta_id is not null) THEN
-
+		
         end if;
     end;
 $$
