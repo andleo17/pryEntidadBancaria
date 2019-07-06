@@ -203,7 +203,7 @@ insert into tipo_cliente (descripcion) values ('Persona natural'),
 --insert dentro de tipo_moneda
 select * from tipo_moneda;
 
-insert into tipo_moneda (codigo,descripcion) values ('SOL','Sol'),
+insert into tipo_moneda (codigo,descripcion) values ('PEN','Sol'),
 						    ('EUR','Euro'),
 						    ('USD','Dólar'),
 						    ('JPY','Yen'),

@@ -3,41 +3,41 @@ package modelo;
 
 public class Ubigeo {
     
-    private int id;
-    private Departamento departamento;
-    private Provincia provincia;
-    private String telefono;
+    private String id;
+    private String departamento;
+    private String provincia;
+    private String distrito;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Departamento getDepartamento() {
+    public String getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
 
-    public Provincia getProvincia() {
+    public String getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(Provincia provincia) {
+    public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getDistrito() {
+        return distrito;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
     }
     
 }
