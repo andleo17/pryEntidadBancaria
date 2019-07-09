@@ -588,5 +588,65 @@ $$
 language 'plpgsql';
 
 
+------ MOSTRAR EL ESTADO DE CUENTA DE UN CLIENTE---
+select * from tipo_movimiento
+create or replace function estado_cuenta_cliente(numero_de_identificacion varchar) returns  
+			table(nombre varchar, nombrex2 text, tipomovi varchar, monto money, fechita date  )  as 
+$$
+	declare 
+	begin
+		return query 
+		select co.nombres, co.apellido_paterno||' '|| co.apellido_materno||', '|| co.nombres, 
+		tipo_movimiento.descripcion, movimiento.monto, movimiento.fecha from movimiento
+		left join cuenta o on o.id = movimiento.cuenta_id 
+		left join cuenta d on d.id = movimiento.cuenta_destino_id
+		left join cliente co on co.id = o.cliente_id
+		left join cliente cd on cd.id = d.cliente_id
+		inner join tipo_movimiento on tipo_movimiento.id = movimiento.tipo_movimiento_id
+		where co.numero_documento = numero_de_identificacion or cd.numero_documento = numero_de_identificacion;
+	end;
+$$
+language 'plpgsql'
+select * from estado_cuenta_cliente('76454587')
+
+select * from cuenta where cliente_id = '1'
+--cuenta 4
+select * from cliente where  numero_documento ='76454587'
+
+-- eliminar funcion -- 
+drop function estado_cuenta_cliente(varchar)
+select * from tipo_movimiento
+------------TRIGGER QUE CADA QUE SE INSERTE UN MOVIMIENTO Y LA CUENTA SEA DIFERENTE A NULL DEBE AGREGAR O SUMAR A MI CUENTA--------
+create or replace function  movimiento_cuenta_agrear() returns trigger as
+$$
+	declare
+		
+	begin
+		if (new.tipo_movimiento_id = 2 ) then 
+			update cuenta set saldo = saldo - new.monto
+			where cuenta.id = new.cuenta_id;
+		end if;
+		
+		if(new.tipo_movimiento_id = 1) then
+			update cuenta set saldo = saldo + new.monto
+			where cuenta.id = new.cuenta_destino_id;
+			
+			if(new.cuenta_id is not null) then 
+				insert into movimiento values (default, new.id, new.canal_id, 2, new.cuenta_id, null
+											   , null, new.empleado_id, new.servicio_brindado_id, new.monto, 
+											   new.fecha, new.cci);
+			end if;
+		end if;
+		return new;
+	end;
+$$
+language 'plpgsql'
+
+create trigger movimiento_consecuencia after insert on movimiento for each row execute procedure movimiento_cuenta_agrear()
+
+--cuando voy a borrar es old
+--cuando voy a actualizar o insertar es new
+
+------------
 
 
