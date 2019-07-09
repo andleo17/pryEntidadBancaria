@@ -87,14 +87,14 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 300);
+        gridBagConstraints.insets = new java.awt.Insets(50, 0, 15, 300);
         jPanel2.add(jTextField1, gridBagConstraints);
 
         jButton1.setText("Buscar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 50);
+        gridBagConstraints.insets = new java.awt.Insets(50, 0, 15, 50);
         jPanel2.add(jButton1, gridBagConstraints);
 
         jLabel3.setText("Información de la cuota:");
@@ -116,7 +116,7 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setText("id");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -132,7 +132,7 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
         jPanel3.add(jLabel7, gridBagConstraints);
 
-        jLabel8.setText("jLabel8");
+        jLabel8.setText("tipo_prestamo");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -148,7 +148,7 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
         jPanel3.add(jLabel9, gridBagConstraints);
 
-        jLabel10.setText("jLabel10");
+        jLabel10.setText("numero_cuota");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -164,7 +164,7 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
         jPanel3.add(jLabel11, gridBagConstraints);
 
-        jLabel14.setText("jLabel14");
+        jLabel14.setText("monto_mensual");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -180,7 +180,7 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 10, 0);
         jPanel3.add(jLabel13, gridBagConstraints);
 
-        jLabel15.setText("jLabel15");
+        jLabel15.setText("intereses");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -201,8 +201,9 @@ public class FrmPagoPrestamos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 50, 5, 0);
         jPanel3.add(jLabel12, gridBagConstraints);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("jLabel5");
+        jLabel5.setText("total");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;

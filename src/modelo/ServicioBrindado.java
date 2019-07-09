@@ -7,7 +7,7 @@ public class ServicioBrindado {
     
     private int id;
     private Servicio servicio;
-    private Usuario usuario;
+    private String usuario;
     private float costo;
     private Date fecha_facturacion;
     private Date fecha_pago;
@@ -28,11 +28,11 @@ public class ServicioBrindado {
         this.servicio = servicio;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
